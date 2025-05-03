@@ -3,16 +3,19 @@ const fs = require("fs")
 const path = require("path")
 const basename = path.basename(__filename);
 require('dotenv').config()
-const connection = {
-  database: process.env.DATABASE_NAME,
-  username: process.env.ADMIN_USERNAME,
-  password: process.env.ADMIN_PASSWORD,
-  port: process.env.DB_PORT,
-  host: process.env.HOST,
-  dialect: process.env.DIALECT,
-  dialectmodel: process.env.DIALECTMODEL,
-};
-const sequelize = new Sequelize(connection);
+
+const sequelize = new Sequelize(
+  process.env.DATABASE_NAME,
+  process.env.ADMIN_USERNAME,
+  process.env.ADMIN_PASSWORD,
+  {
+    host: process.env.HOST,
+    port: process.env.DB_PORT,
+    dialect: process.env.DIALECT, // 'mysql'
+    dialectModule: require('mysql2'), // Use mysql2 as the driver
+  }
+);
+
 const db = {}
 db.sequelize = sequelize
 fs.readdirSync(__dirname)
