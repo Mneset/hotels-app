@@ -11,7 +11,6 @@ const sequelize = new Sequelize(
     host: process.env.HOST,
     port: process.env.DB_PORT,
     dialect: process.env.DIALECT,
-    dialectModule: require(process.env.DIALECTMODEL),
   }
 );
 const db = {}
