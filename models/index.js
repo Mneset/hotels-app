@@ -1,20 +1,18 @@
 const Sequelize = require('sequelize')
 const fs = require("fs")
 const path = require("path")
-const mysql2 = require('mysql2');
 const basename = path.basename(__filename);
 require('dotenv').config()
-const sequelize = new Sequelize(
-  process.env.DATABASE_NAME,
-  process.env.ADMIN_USERNAME,
-  process.env.ADMIN_PASSWORD,
-  {
-    host: process.env.HOST,
-    port: process.env.DB_PORT,
-    dialect: process.env.DIALECT,
-    dialectModule: mysql2,
-  }
-);
+const connection = {
+  database: process.env.DATABASE_NAME,
+  username: process.env.ADMIN_USERNAME,
+  password: process.env.ADMIN_PASSWORD,
+  port: process.env.DB_PORT,
+  host: process.env.HOST,
+  dialect: process.env.DIALECT,
+  dialectmodel: process.env.DIALECTMODEL,
+};
+const sequelize = new Sequelize(connection);
 const db = {}
 db.sequelize = sequelize
 fs.readdirSync(__dirname)
